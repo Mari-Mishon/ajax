@@ -1,1 +1,7 @@
-{"adress1":"asasas","Madress1":"Modbus Adress 1","Code1":"","Type1":"","gpio1":"","adress2":"Adress 2","Madress2":"Modbus Adress 2","Code2":"","Type2":"","gpio2":"","adress3":"Adress 3","Madress3":"Modbus Adress 3","Code3":"","Type3":"","gpio3":"","adress4":"Adress 4","Madress4":"Modbus Adress 4","Code4":"","Type4":"","gpio4":""}
+{
+  "adress_1":"\u0444\u044b\u0432\u044b\u0444\u0432",
+  "Madress_1":"Modbus \u0430\u0434\u0440\u0435\u0441",
+  "code_1":"23232\u0446\u0443\u0443",
+  "type_1":"",
+  "gpio_1":"GPIO"
+}

@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<title>Таблица</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<script type="text/javascript" src="jquery-1.2.6.pack.js"></script>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="ajax_2.js"></script>
+
+</head>
+<body>
+
+<script type="text/javascript">
+var total = 0;
+function add_new_image(){
+	total++;
+	$('<tr>')
+	.attr('id','tr_image_'+total)
+	.css({lineHeight:'20px'})
+	
+	.append (
+		$('<td>')
+		.attr('id','td_adress_'+total)
+		.css({paddingRight:'5px',width:'120px'})
+		.append(
+			$('<input type="text" value="Адрес" />')
+			.css({width:'150px'})
+			.attr('id','adress_'+total)
+			.attr('name','adress_'+total)
+		)		
+		
+	)
+	.append(
+		$('<td>')
+		.attr('id','td_ madress_'+total)
+		.css({paddingRight:'5px',width:'150px'})
+		.append(
+       $('<input type="text" value="Modbus адрес" />')
+       .css({width:'150px'})
+       .attr('id','Madress_'+total)
+       .attr('name','Madress_'+total)
+    )                             
+)
+	.append(
+		$('<td>')
+		.attr('id','td_ code_'+total)
+		.css({paddingRight:'5px',width:'150px'})
+		.append(
+       $('<input type="text" value=""/>')
+       .css({width:'150px'})
+       .attr('id','code_'+total)
+       .attr('name','code_'+total)
+    )                             
+)
+	.append(
+		$('<td>')
+		.attr('id','td_ type_'+total)
+		.css({paddingRight:'5px',width:'150px'})
+		.append(
+       $('<input type="text" value="" />')
+       .css({width:'150px'})
+       .attr('id','type_'+total)
+       .attr('name','type_'+total)
+    )                             
+)
+	.append(
+		$('<td>')
+		.attr('id','td_ gpio_'+total)
+		.css({paddingRight:'5px',width:'150px'})
+		.append(
+       $('<input type="text" value="GPIO"/>')
+       .css({width:'150px'})
+       .attr('id','gpio_'+total)
+       .attr('name','gpio_'+total)
+    )                             
+)
+
+	.append (
+		$('<td>')
+		.css({width:'60px'})
+		.append (
+			$('<span id="progress_'+total+'" class="padding5px"><a  href="#" onclick="$(\'#tr_image_'+total+'\').remove();" class="ico_delete"><img src="delete.png" alt="del" border="0"></a></span>')
+		)
+	)
+	.appendTo('#table_container');
+	
+}
+$(document).ready(function() {
+	add_new_image();
+});
+</script>
+
+<form method="POST" id="formx" action="javascript:void(null);" onsubmit="call()">
+	<table border id="table_container">
+	
+		<tr> 
+<td align="center" rowspan="2">МЭК104</td> 
+<td align="center" colspan="3">Modbus </td> 
+<td align="center" rowspan="2">GPIO</td> 
+</tr> 
+<tr> 
+<td align="center">Адрес</td> 
+<td align="center">Код функции</td> 
+<td align="center">Тип данных</td> 
+</tr> 
+	</table>
+		<br/>
+	<input type="button" value="Добавить строку" id="add" onclick="return add_new_image();">
+	<input type="submit" value="Отправить">
+	
+</form>
+<div id="results">Вывод</div>
+</body>
+</html>
