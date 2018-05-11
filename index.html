@@ -1,113 +1,183 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <head>	
 <title>Таблица</title>
-<meta content="charset=UTF-8"/>
+<meta content="charset=Windows-1251"/>
 <script src="jquery-1.2.6.pack.js"></script>
-<script src="js/jquery-1.8.3.min.js"></script>
 <script src="ajax_2.js"></script>
-</head>
-<body>
+
+
+<style>
+#tbl,#tb2 {
+    border-collapse: collapse;
+}
+
+#tbl td {
+    border: 1px solid #ddd;
+    padding: 4px;
+}
+
+#tb2 td {
+    border: 1px solid #ddd;
+    padding: 4px;
+}
+
+#tbl select {
+    width: 80px;
+}
+
+#tb2 select {
+    width: 80px;
+}
+
+a.delRow, #addRow, #addRow2 {
+    display: block;
+    cursor: pointer;
+}
+
+</style> 
+
+		
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script> 
+$(function() {
+    $('#addRow').click(function() {
+        var t = $('#tbl');
+        t.find('tr')
+         .eq(2)
+         .clone()
+         .appendTo(t)
+         .find('td:last')
+         .append('<a class="delRow">удалить</a>')
+         .end()
+         .find('input')
+         .val('');
+    });
+    
+    $('#tbl').on('click', 'a.delRow', function() {
+        $(this).closest('tr').remove(); 
+    });
+});
+</script>     
 
 <script>
-var total = 0;
-function add_new_image(){
-	total++;
-	$('<tr>')
-	.attr('id','tr_image_'+total)
-	.css({lineHeight:'20px'})
+function agreeForm(f) {
+modbus_elems = f.elements['modbus[]'];
+type_elems = f.elements['type[]'];
+if (mjyjhj){
+for(var i = 0; i < type_elems.length; i++){
+    if (type_elems[i].value=="TS"){
+		modbus_elems[i].disabled = 0
+		modbus_elems[i].value=""
+		}
 	
-	.append (
-		$('<td>')
-		.attr('id','td_adress_'+total)
-		.css({paddingRight:'0px',paddingTop:'0px',paddingLeft:'0px',paddingBottom:'0px',width:'160px'})
-		.append(
-			$('<input type="text" value="Адрес" />')
-			.css({width:'180px'})
-			.attr('id','adress_'+total)
-			.attr('name','adress_'+total)
-		)		
-		
-	)
-	.append(
-		$('<td>')
-		.attr('id','td_ madress_'+total)
-		.css({paddingRight:'0px',paddingTop:'0px',paddingLeft:'0px',paddingBottom:'0px',width:'150px'})
-		.append(
-       $('<input type="text" value="Modbus адрес" />')
-       .css({width:'150px'})
-       .attr('id','Madress_'+total)
-       .attr('name','Madress_'+total)
-    )                             
-)
-	.append(
-		$('<td>')
-		.attr('id','td_ code_'+total)
-		.css({paddingRight:'0px',paddingTop:'0px',paddingLeft:'0px',paddingBottom:'0px',width:'150px'})
-		.append(
-       $('<input type="text" value=""/>')
-       .css({width:'150px'})
-       .attr('id','code_'+total)
-       .attr('name','code_'+total)
-    )                             
-)
-	.append(
-		$('<td>')
-		.attr('id','td_ type_'+total)
-		.css({paddingRight:'0px',paddingTop:'0px',paddingLeft:'0px',paddingBottom:'0px',width:'150px'})
-		.append(
-       $('<input type="text" value="" />')
-       .css({width:'150px'})
-       .attr('id','type_'+total)
-       .attr('name','type_'+total)
-    )                             
-)
-	.append(
-		$('<td>')
-		.attr('id','td_ gpio_'+total)
-		.css({paddingRight:'0px',paddingTop:'0px',paddingLeft:'0px',paddingBottom:'0px',width:'120px'})
-		.append(
-       $('<input type="text" value="GPIO"/>')
-       .css({width:'120px'})
-       .attr('id','gpio_'+total)
-       .attr('name','gpio_'+total)
-    )                             
-)
-
-	.append (
-		$('<td>')
-		.css({width:'20px'})
-		.append (
-			$('<span id="progress_'+total+'" class="padding0px"><a  href="#" onclick="$(\'#tr_image_'+total+'\').remove();" class="ico_delete"><img src="delete.png" alt="del"></a></span>')
-		)
-	)
-	.appendTo('#table_container');
-	
-}
-$(document).ready(function() {
-	add_new_image();
-});
+	else {
+		modbus_elems[i].disabled = 1 
+		modbus_elems[i].value="Чиселка"
+		}
+   };
+  };
+ else {
+    };
+ };
 </script>
 
+<script> 
+$(function() {
+    $('#addRow2').click(function() {
+        var t = $('#tb2');
+        t.find('tr')
+         .eq(1)
+         .clone()
+         .appendTo(t)
+         .find('td:last')
+         .append('<a class="delRow">удалить</a>')
+         .end()
+         .find('input')
+         .val('');
+    });
+    
+    $('#tb2').on('click', 'a.delRow', function() {
+        $(this).closest('tr').remove(); 
+    });
+});
+</script>     
+
+</head> 
+
+
+<body>
 <form method="POST" id="formx" action="javascript:void(null);" onsubmit="call()">
-	<table border id="table_container" style="border-collapse: collapse; border: 1px solid black;">
+<h3>Преобразование МЭК104-Модбас</h3>
+<table border id="tbl">
+	<tr style="border-collapse: collapse; border: 2px solid black;"> 
+		<td align="center" rowspan="2" style="border-collapse: collapse; border: 2px solid black;">Имя</td> 
+		<td align="center" rowspan="2" style="border-collapse: collapse; border: 2px solid black;">МЭК104</td> 
+		<td align="center" colspan="4" style="border-collapse: collapse; border: 2px solid black;">Modbus </td> 
+		<td align="center" rowspan="2" style="border-collapse: collapse; border: 2px solid black;">Текущие показания Modbus </td> 
+		<td align="center" rowspan="2"><a id="addRow">+</a></td>
+	</tr> 
+
+	<tr style="border-collapse: collapse; border: 2px solid black;"> 
+		<td align="center" style="border-collapse: collapse; border: 2px solid black;">Адрес устройства</td> 
+		<td align="center" style="border-collapse: collapse; border: 2px solid black;">Адрес</td> 
+		<td align="center" style="border-collapse: collapse; border: 2px solid black;">Код функции</td> 
+		<td align="center" style="border-collapse: collapse; border: 2px solid black;">Тип данных</td>  
+
+    </tr>
+    
+	<tr>
+        <td><input type="text" name="name[]" /></td>
+        <td><input type="text" name="adress[]" /></td>
+        <td><input type="text" name="Now_Madress[]" /></td>
+		<td><input type="text" name="Madress[]" /></td>
+        <td><select name="code[]"><option title="чтение значений из регистров флагов (Read Coil Status)">1</option>
+							<option title="чтение значений из дискретных входов (Read Discrete Inputs)">2</option>
+							<option title=" чтение значений из регистров хранения (Read Holding Registers)">3</option>
+							<option title="чтение значений из регистров ввода (Read Input Registers)">4</option></select></td>
+        <td><select name="type[]" onchange="agreeForm(formx)"><option value="TS" label="1" title="Телесигнализация">1</option>
+							<option value="TI" title="Телеизмерения" >4</option>
+							<option value="TU" title="Телеуправление">5</option></select></td>
+		<td><input type="text" name="modbus[]" /></td>
+        <td></td>
+    </tr>
+</table>
+<br/>
+    <input type="submit" value="Сохранить и применить"/>
 	
-<tr> 
-<td align="center" rowspan="2">МЭК104</td> 
-<td align="center" colspan="3">Modbus </td> 
-<td align="center" rowspan="2">GPIO</td> 
-</tr> 
-<tr> 
-<td align="center">Адрес</td> 
-<td align="center">Код функции</td> 
-<td align="center">Тип данных</td> 
-</tr> 
-	</table>
+<br><br>
+<h3>Преобразование МЭК104-GPIO</h3>	
+<table border id="tb2">
+	<tr style="border-collapse: collapse; border: 2px solid black;"> 
+		<td align="center" style="border-collapse: collapse; border: 2px solid black;">Имя</td> 
+		<td align="center" style="border-collapse: collapse; border: 2px solid black;">МЭК104</td> 
+		<td align="center" style="border-collapse: collapse; border: 2px solid black;">GPIO</td> 
+		<td align="center" style="border-collapse: collapse; border: 2px solid black;">Текущее состояние GPIO</td>
+		<td><a id="addRow2">+</a></td>		
+	</tr> 
 	
-	<br/>
-	<input type="button" value="Добавить строку" id="add" onclick="return add_new_image();">
-	<input type="submit" value="Отправить">
+	<tr>
+        <td><input type="text" name="namegpio[]" /></td>
+        <td><input type="text" name="adressgpio[]" /></td>
+		<td><select name="gpio[]"><option>GPIO01</option><option>GPIO02</option>
+			<option>GPIO03</option><option>GPIO04</option>
+			<option>GPIO05</option><option>GPIO06</option>
+			<option>GPIO07</option><option>GPIO08</option>
+			<option>GPIO09</option><option>GPIO10</option>
+			<option>GPIO11</option><option>GPIO12</option>
+			<option>GPIO13</option><option>GPIO14</option>
+			<option>GPIO15</option><option>GPIO16</option>
+			<option>GPIO17</option><option>GPIO18</option>
+			<option>GPIO19</option><option>GPIO20</option>
+			<option>GPIO21</option><option>GPIO22</option></select></td>
+		<td><input type="text" name="codegpio[]" id="codegpio" /></td>
+        <td></td>
+    </tr>
+	
+	</table><br/>
+	
+<input type="submit" value="Сохранить и применить"/>
 	
 </form>
-<div id="results">Вывод</div>
-</body>
+<div id="results"></div>
+</body> 
 </html>

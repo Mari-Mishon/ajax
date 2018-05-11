@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<head>	
+<title>Таблица</title>
+<meta content="charset=Windows-1251"/>
+<script src="jquery-1.2.6.pack.js"></script>
+<script src="ajax_2.js"></script>
+</head>
+<body>
+
+
+
+<script>
+$(function() {
+var jqxhr = $.getJSON("output.json", function(data) {
+    $('#modbus').val(data.modbus_state_1);
+	$('#codegpio').val(data.gpio_state_1);	// this will show the info it in firebug console
+	
+});
+  var timerID = setInterval(function() {
+        if (jqxhr.readyState == 4) {
+            console.log("Запрос выполнен: " + jqxhr.responseText);
+            clearInterval(timerID);
+        }
+    }, 5000);
+		
+});
+
+</script>
+
+<script>
+var total = 0;
+function add_new_image(){
+	total++;
+	$('<tr>')
+	.attr('id','tr_image_'+total)
+	.css({lineHeight:'19px'})
+	
+	.append (
+		$('<td>')
+		.attr('id','td_adress_'+total)
+		.css({paddingRight:'0px',paddingTop:'0px',paddingLeft:'0px',paddingBottom:'0px',width:'160px'})
+		.append(
+			$('<input type="text" value="" />')
+			.css({width:'180px'})
+			.attr('id','name_'+total)
+			.attr('name','name_'+total)
+		)		
+		
+	)
+	
+		.append (
+		$('<td>')
+		.attr('id','td_adress_'+total)
+		.css({paddingRight:'0px',paddingTop:'0px',paddingLeft:'0px',paddingBottom:'0px',width:'160px'})
+		.append(
+			$('<input type="text" value="" />')
+			.css({width:'180px'})
+			.attr('id','adress_'+total)
+			.attr('name','adress_'+total)
+		)		
+		
+	)
+	
+	.append(
+		$('<td>')
+		.attr('id','td_ now_madress_'+total)
+		.css({paddingRight:'0px',paddingTop:'0px',paddingLeft:'0px',paddingBottom:'0px',width:'150px'})
+		.append(
+       $('<input type="text" value="" />')
+       .css({width:'150px'})
+       .attr('id','Now_Madress_'+total)
+       .attr('name','Now_Madress_'+total)
+    )                             
+)
+	.append(
+		$('<td>')
+		.attr('id','td_ madress_'+total)
+		.css({paddingRight:'0px',paddingTop:'0px',paddingLeft:'0px',paddingBottom:'0px',width:'150px'})
+		.append(
+       $('<input type="text" value="" />')
+       .css({width:'150px'})
+       .attr('id','Madress_'+total)
+       .attr('name','Madress_'+total)
+    )                             
+)
+	.append(
+		$('<td>')
+		.attr('id','td_ code_'+total)
+		.css({paddingRight:'0px',paddingTop:'0px',paddingLeft:'0px',paddingBottom:'0px',width:'150px'})
+		.append(
+       $('<select><option title="чтение значений из регистров флагов (Read Coil Status)">1</option><option title="чтение значений из дискретных входов (Read Discrete Inputs)">2</option><option title=" чтение значений из регистров хранения (Read Holding Registers)">3</option><option title="чтение значений из регистров ввода (Read Input Registers)">4</option></select>')
+       .css({width:'150px'})
+       .attr('id','code_'+total)
+       .attr('name','code_'+total)
+    )                             
+)
+	.append(
+		$('<td>')
+		.attr('id','td_ type_'+total)
+		.css({paddingRight:'0px',paddingTop:'0px',paddingLeft:'0px',paddingBottom:'0px',width:'150px'})
+		.append(
+       $('<select onchange="agreeForm(formx)"><option value="TS" label="1" title="Телесигнализация">1</option><option value="TI" title="Телеизмерения" >4</option><option value="TU" title="Телеуправление">5</option></select>')
+       .css({width:'150px'})
+       .attr('id','type_'+total)
+       .attr('name','type_'+total)
+    )                             
+)
+	.append(
+		$('<td>')
+		.attr('id','td_ modbus'+total)
+		.css({paddingRight:'0px',paddingTop:'0px',paddingLeft:'0px',paddingBottom:'0px',width:'150px'})
+		.append(
+       $('<input type="text" value="" />')
+       .css({width:'190px'})
+       .attr('id','modbus'+total)
+       .attr('name','modbus'+total)
+
+    )                             
+)
+	.append (
+		$('<td>')
+		.css({width:'20px'})
+		.append (
+			$('<span id="progress_'+total+'" class="padding0px"><a  href="#" onclick="$(\'#tr_image_'+total+'\').remove();" class="ico_delete"><img src="delete.png" alt="del"></a></span>')
+		)
+	)
+	.appendTo('#table_container');
+	
+}
+$(document).ready(function() {
+	add_new_image();
+});
+</script>
+
+
+<script>
+function agreeForm(f) {
+    if (f["type_"+total].value=="TS"){
+		f["modbus"+total].disabled = 0
+		f["modbus"+total].value=""
+		}
+	else {
+		f["modbus"+total].disabled = 1 
+		f["modbus"+total].value="Чиселка"
+		}
+   }
+</script>
+
+<script>
+
+var total_2 = 0;
+function add_new_image_2(){
+	total_2++;
+	$('<tr>')
+	.attr('id','tr_image2_'+total_2)
+	.css({lineHeight:'19px'})
+	
+.append (
+		$('<td>')
+		.attr('id','td_adress_'+total)
+		.css({paddingRight:'0px',paddingTop:'0px',paddingLeft:'0px',paddingBottom:'0px',width:'160px'})
+		.append(
+			$('<input type="text" value="" />')
+			.css({width:'180px'})
+			.attr('id','namegpio_'+total)
+			.attr('name','namegpio_'+total)
+		)		
+		
+	)
+	.append(
+		$('<td>')
+		.attr('id','td_ adressgpio_'+total_2)
+		.css({paddingRight:'0px',paddingTop:'0px',paddingLeft:'0px',paddingBottom:'0px',width:'120px'})
+		.append(
+       $('<input type="text" value=""/>')
+       .css({width:'120px'})
+       .attr('id','adressgpio_'+total_2)
+       .attr('name','adressgpio_'+total_2)
+    )                             
+)
+	.append(
+		$('<td>')	
+		.attr('id','td_ gpio_'+total_2)
+		
+		
+		
+		
+		.css({paddingRight:'0px',paddingTop:'0px',paddingLeft:'0px',paddingBottom:'0px',width:'120px'})
+		.append( 
+       $('<select><option>GPIO01</option><option>GPIO02</option><option>GPIO03</option><option>GPIO04</option><option>GPIO05</option><option>GPIO06</option><option>GPIO07</option><option>GPIO08</option><option>GPIO09</option><option>GPIO10</option><option>GPIO11</option><option>GPIO12</option><option>GPIO13</option><option>GPIO14</option><option>GPIO15</option><option>GPIO16</option><option>GPIO17</option><option>GPIO18</option><option>GPIO19</option><option>GPIO20</option><option>GPIO21</option><option>GPIO22</option></select>')
+       .css({width:'120px'})
+       .attr('id','gpio_'+total_2)
+       .attr('name','gpio_'+total_2)
+	   
+    )                             
+)
+
+	.append(
+		$('<td>')
+		.attr('id','td_ codegpio_'+total_2)
+		.css({paddingRight:'0px',paddingTop:'0px',paddingLeft:'0px',paddingBottom:'0px',width:'150px'})
+		.append(
+       $('<select><option>1</option><option>0</option></select>')
+       .css({width:'190px'})
+       .attr('id','codegpio_'+total_2)
+       .attr('name','codegpio_'+total_2)
+    )                             
+)
+
+	.append (
+		$('<td>')
+		.css({width:'20px'})
+		.append (
+			$('<span id="progress_'+total_2+'" class="padding0px"><a  href="#" onclick="$(\'#tr_image2_'+total_2+'\').remove();" class="ico_delete"><img src="delete.png" alt="del"></a></span>')
+		)
+	)
+	.appendTo('#table_container_2');
+	
+}
+$(document).ready(function() {
+	add_new_image_2();
+});
+</script>
+
+
+
+<form method="POST" id="formx" action="javascript:void(null);" onsubmit="call()">
+<h3>Преобразование МЭК104-Модбас</h3>
+	<table border id="table_container" style="border-collapse: collapse; border: 3px solid black;">	
+<tr style="border-collapse: collapse; border: 3px solid black;"> 
+<td align="center" rowspan="2" style="border-collapse: collapse; border: 3px solid black;">Имя</td> 
+<td align="center" rowspan="2" style="border-collapse: collapse; border: 3px solid black;">МЭК104</td> 
+<td align="center" colspan="4" style="border-collapse: collapse; border: 3px solid black;">Modbus </td> 
+<td align="center" rowspan="2" style="border-collapse: collapse; border: 3px solid black;">Текущие показания Modbus </td> 
+</tr> 
+
+<tr style="border-collapse: collapse; border: 3px solid black;"> 
+<td align="center" style="border-collapse: collapse; border: 3px solid black;">Адрес устройства</td> 
+<td align="center" style="border-collapse: collapse; border: 3px solid black;">Адрес</td> 
+<td align="center" style="border-collapse: collapse; border: 3px solid black;">Код функции</td> 
+<td align="center" style="border-collapse: collapse; border: 3px solid black;">Тип данных</td> 
+</tr> 
+	</table>
+		<input type="button" value="Добавить группу" id="add" onclick="return add_new_image();">
+	<br><br>
+
+	
+<h3>Преобразование МЭК104-GPIO</h3>	
+<table border id="table_container_2" style="border-collapse: collapse; border: 3px solid black;">
+<tr style="border-collapse: collapse; border: 3px solid black;"> 
+<td align="center" style="border-collapse: collapse; border: 3px solid black;">Имя</td> 
+<td align="center" style="border-collapse: collapse; border: 3px solid black;">МЭК104</td> 
+<td align="center" style="border-collapse: collapse; border: 3px solid black;">GPIO</td> 
+<td align="center" style="border-collapse: collapse; border: 3px solid black;">Текущее состояние GPIO</td> 
+</tr> 
+	</table>
+
+	<br/>
+		<input type="button" value="Добавить группу" id="add" onclick="return add_new_image_2();">
+		<input type="submit" value="Отправить">
+</form>
+
+<div id="results"></div>
+</body>
+</html>
